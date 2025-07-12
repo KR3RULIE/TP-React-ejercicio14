@@ -7,3 +7,10 @@
 main {
   flex-grow: 1;
 }
+
+.circle {
+  width: 25px;
+  height: 25px;
+  background-color: blue;
+  border-radius: 50%;
+}
