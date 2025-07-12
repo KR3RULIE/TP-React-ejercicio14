@@ -13,7 +13,7 @@ const Error404 = () => {
       </div>
       <Button
         variant="warning"
-        className="d-flex mx-auto my-4 fs-bold fst-italic"
+        className="d-flex mx-auto my-5 fs-bold fst-italic"
       >
         Volver al inicio
       </Button>
