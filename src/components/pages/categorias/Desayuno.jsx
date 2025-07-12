@@ -1,9 +1,9 @@
 const Desayuno = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return (
+    <div>
+      <p>aqui va el mapeo de las card</p>
+    </div>
+  );
 };
 
 export default Desayuno;

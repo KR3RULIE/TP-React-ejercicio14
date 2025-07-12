@@ -1,3 +1,11 @@
+import { useState } from "react";
+import { Button } from "react-bootstrap";
+import Desayuno from "./categorias/Desayuno";
+import DesayunoForm from "./administracion/DesayunoForm";
+{
+  /*Esto importa el form que agrega desayunos*/
+}
+
 const Inicio = () => {
   return (
     <section className="d-flex">
@@ -26,7 +34,9 @@ const Inicio = () => {
       <div className="flex-grow-1 p-4">
         <section id="desayuno" className="mb-5">
           <h2 className="h4 fw-bold mb-3">Desayuno</h2>
-          <p>Bienvenido a la página de desayuno...</p>
+          <Desayuno></Desayuno> {/* Este componete ara el mapeo de las card.*/}
+          <Button className="my-2">Nueva receta...</Button>
+          {/*Este boton deberia funcionar como link para ir a DesayunoForm*/}
         </section>
 
         <section id="almuerzo" className="mb-5">
