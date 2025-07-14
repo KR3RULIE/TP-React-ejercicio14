@@ -1,16 +1,31 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
-  import.meta.env.VITE_API_EMAIL;
-  import.meta.env.VITE_API_PW;
-  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const iniciarSesion = (usuario) => {
+    if (
+      usuario.email === import.meta.env.VITE_API_EMAIL &&
+      usuario.password === import.meta.env.VITE_API_PW
+    ) {
+      console.log("soy el admin");
+    } else {
+      console.log("algo salio mal");
+    }
+  };
+
   return (
     <section className="container my-5">
       <h1 className="text-center fs-bold fst-italic text-info">Login Admin</h1>
       <Container>
         <Row xs={1} md={2}>
           <Col className="my-3">
-            <Form>
+            <Form onSubmit={handleSubmit(iniciarSesion)}>
               <Form.Text className="text-muted">
                 los compos con un <span className="text-danger">*</span> son
                 obligatorios.
@@ -20,9 +35,21 @@ const Login = () => {
                 <Form.Label>
                   Email admin: (<span className="text-danger">*</span>)
                 </Form.Label>
-                <Form.Control type="email" placeholder="ejemplo@gmail.com" />
+                <Form.Control
+                  type="email"
+                  placeholder="ejemplo@gmail.com"
+                  {...register("email", {
+                    required: "El Email es un dato obligatorio",
+                    pattern: {
+                      value:
+                        /^(?!\.)[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)*@(?!-)[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/,
+                      message:
+                        "El email debe tener un formato valido: ej: ejemplo@gmail.com",
+                    },
+                  })}
+                />
                 <Form.Text className="text-danger">
-                  Este campo es obligatorio.
+                  {errors.email?.message}
                 </Form.Text>
               </Form.Group>
 
@@ -30,9 +57,21 @@ const Login = () => {
                 <Form.Label>
                   Contraseña admin: (<span className="text-danger">*</span>)
                 </Form.Label>
-                <Form.Control type="password" placeholder="Contraseña" />
+                <Form.Control
+                  type="password"
+                  placeholder="Contraseña"
+                  {...register("pw", {
+                    required: "La Contraseña es un dato obligatorio",
+                    pattern: {
+                      value:
+                        /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+                      message:
+                        "La contraseña debe tener un formato valido: ej: Qw1#23!5",
+                    },
+                  })}
+                />
                 <Form.Text className="text-danger">
-                  Este campo es obligatorio.
+                  {errors.pw?.message}
                 </Form.Text>
               </Form.Group>
 
