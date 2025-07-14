@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
 
-const Inicio = () => {
+const Inicio = ({ admin, setAdmin }) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
 
@@ -33,9 +33,11 @@ const Inicio = () => {
           <h2 className="h4 fw-bold mb-3">Desayuno</h2>
           <Desayuno></Desayuno> {/* Este componete ara el mapeo de las card.*/}
           {/*Este boton deberia funcionar como link para ir a DesayunoForm*/}
-          <Button className="my-2" onClick={() => setShowModal(true)}>
-            Nueva receta...
-          </Button>
+          {admin && (
+            <Button className="my-2" onClick={() => setShowModal(true)}>
+              Nueva receta...
+            </Button>
+          )}
           {/* Modal */}
           <DesayunoForm show={showModal} handleClose={handleClose} />
         </section>

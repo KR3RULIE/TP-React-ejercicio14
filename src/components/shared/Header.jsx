@@ -1,9 +1,17 @@
+import { Button } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 
-const Header = () => {
+const Header = ({ admin, setAdmin }) => {
+  const navegacion = useNavigate();
+  const logout = () => {
+    setAdmin(false);
+    sessionStorage.removeItem("adminKey");
+    navegacion("/");
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -21,18 +29,24 @@ const Header = () => {
             </NavLink>
           </Nav>
           <Nav className="ms-auto">
-            <div className="d-flex gap-1 my-auto">
-              <div className="circle"></div>
-              <p className="text-center text-warning my-auto">
-                ADMIN <small className="text-success my-auto">(activo)</small>
-              </p>
-            </div>
-            <NavLink className="nav-link" to={"/login"}>
-              Iniciar Sesión
-            </NavLink>
-            <NavLink className="nav-link" to={"*"}>
-              Cerrar Sesión
-            </NavLink>
+            {admin ? (
+              <>
+                <div className="d-flex gap-1 my-auto">
+                  <div className="circle"></div>
+                  <p className="text-center text-warning my-auto">
+                    ADMIN{" "}
+                    <small className="text-success my-auto">(activo)</small>
+                  </p>
+                </div>
+                <Button variant="link" className="nav-link" onClick={logout}>
+                  Cerrar Sesión
+                </Button>
+              </>
+            ) : (
+              <NavLink className="nav-link" to={"/login"}>
+                Iniciar Sesión
+              </NavLink>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

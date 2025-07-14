@@ -1,21 +1,26 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
-const Login = () => {
+const Login = ({ setAdmin }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const navegacion = useNavigate();
+
   const iniciarSesion = (usuario) => {
     if (
       usuario.email === import.meta.env.VITE_API_EMAIL &&
-      usuario.password === import.meta.env.VITE_API_PW
+      usuario.pw === import.meta.env.VITE_API_PW
     ) {
-      console.log("soy el admin");
+      setAdmin(true);
+      sessionStorage.setItem("adminKey", true);
+      navegacion("/");
     } else {
-      console.log("algo salio mal");
+      console.log("Email o Contraseña incorrecta");
     }
   };
 
