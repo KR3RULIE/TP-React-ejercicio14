@@ -29,6 +29,7 @@ const DesayunoForm = ({ show, handleClose }) => {
               placeholder="Café Negro"
               {...register("titulo", { required: "Este campo es obligatorio" })}
             />
+            <Form.Text>{errors.titulo?.message}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -40,6 +41,7 @@ const DesayunoForm = ({ show, handleClose }) => {
                 required: "Este campo es obligatorio",
               })}
             />
+            <Form.Text>{errors.descripcion?.message}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -52,6 +54,7 @@ const DesayunoForm = ({ show, handleClose }) => {
                 required: "Este campo es obligatorio",
               })}
             />
+            <Form.Text>{errors.ingredientes?.message}</Form.Text>
           </Form.Group>
 
           <Button variant="primary" type="submit">
