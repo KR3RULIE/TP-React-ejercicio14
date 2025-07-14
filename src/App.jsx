@@ -17,10 +17,7 @@ function App() {
         <Header admin={admin} setAdmin={setAdmin}></Header>
         <main>
           <Routes>
-            <Route
-              path="/"
-              element={<Inicio admin={admin} setAdmin={setAdmin} />}
-            ></Route>
+            <Route path="/" element={<Inicio admin={admin} />}></Route>
             <Route
               path="/login"
               element={<Login setAdmin={setAdmin} />}

@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
 
-const Inicio = ({ admin, setAdmin }) => {
+const Inicio = ({ admin }) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
 
