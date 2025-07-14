@@ -18,3 +18,8 @@ main {
 .sombra {
   box-shadow: 0px 0px 30px 2px rgb(86, 87, 85);
 }
+
+.aside {
+  width: 250px;
+  height: 100vh;
+}

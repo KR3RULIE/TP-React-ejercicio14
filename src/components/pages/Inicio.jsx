@@ -10,10 +10,7 @@ const Inicio = () => {
   return (
     <section className="d-flex">
       {/* Navegación lateral */}
-      <aside
-        className="bg-light border-end p-3 sticky-top"
-        style={{ width: "250px", height: "100vh" }}
-      >
+      <aside className="bg-light border-end p-3 sticky-top aside">
         <nav className="nav flex-column">
           <a href="#desayuno" className="nav-link text-primary">
             Desayuno
@@ -35,10 +32,10 @@ const Inicio = () => {
         <section id="desayuno" className="mb-5">
           <h2 className="h4 fw-bold mb-3">Desayuno</h2>
           <Desayuno></Desayuno> {/* Este componete ara el mapeo de las card.*/}
+          {/*Este boton deberia funcionar como link para ir a DesayunoForm*/}
           <Button className="my-2" onClick={() => setShowModal(true)}>
             Nueva receta...
           </Button>
-          {/*Este boton deberia funcionar como link para ir a DesayunoForm*/}
           {/* Modal */}
           <DesayunoForm show={showModal} handleClose={handleClose} />
         </section>
