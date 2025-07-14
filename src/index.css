@@ -23,3 +23,7 @@ main {
   width: 250px;
   height: 100vh;
 }
+
+.color {
+  color: rgb(245, 230, 20) !important;
+}
