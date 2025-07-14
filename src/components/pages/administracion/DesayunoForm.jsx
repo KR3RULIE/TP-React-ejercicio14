@@ -18,7 +18,7 @@ const DesayunoForm = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Agregar Receta de Desayuno</Modal.Title>
+        <Modal.Title>Agregar una Receta del Desayuno</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -28,11 +28,7 @@ const DesayunoForm = ({ show, handleClose }) => {
               type="text"
               placeholder="Café Negro"
               {...register("titulo", { required: "Este campo es obligatorio" })}
-              isInvalid={!!errors.titulo}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.titulo?.message}
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -43,11 +39,7 @@ const DesayunoForm = ({ show, handleClose }) => {
               {...register("descripcion", {
                 required: "Este campo es obligatorio",
               })}
-              isInvalid={!!errors.descripcion}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.descripcion?.message}
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -59,11 +51,7 @@ const DesayunoForm = ({ show, handleClose }) => {
               {...register("ingredientes", {
                 required: "Este campo es obligatorio",
               })}
-              isInvalid={!!errors.ingredientes}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.ingredientes?.message}
-            </Form.Control.Feedback>
           </Form.Group>
 
           <Button variant="primary" type="submit">
