@@ -10,7 +10,16 @@ const DesayunoForm = ({ show, handleClose }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Receta enviada:", data);
+    // Obtener recetas anteriores
+    const recetasAnteriores =
+      JSON.parse(localStorage.getItem("desayuno")) || [];
+
+    // Agregar nueva receta
+    const nuevasRecetas = [...recetasAnteriores, data];
+
+    // Guardar en localStorage
+    localStorage.setItem("desayuno", JSON.stringify(nuevasRecetas));
+
     handleClose();
     reset(); // limpia el formulario
   };
