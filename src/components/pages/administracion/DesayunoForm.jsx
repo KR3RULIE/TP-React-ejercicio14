@@ -43,7 +43,9 @@ const DesayunoForm = ({ show, handleClose, agregarReceta }) => {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Ingredientes</Form.Label>
+            <Form.Label>
+              Ingredientes / Tiempo de preparacion/cocción
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows={3}

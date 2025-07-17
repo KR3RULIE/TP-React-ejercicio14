@@ -10,6 +10,7 @@ import { useState } from "react";
 function App() {
   const adminLogeado = sessionStorage.getItem("adminKey") || false;
   const [admin, setAdmin] = useState(adminLogeado);
+  const [recetasPrueba, setRecetasPrueba] = useState([]);
 
   return (
     <>
@@ -17,7 +18,16 @@ function App() {
         <Header admin={admin} setAdmin={setAdmin}></Header>
         <main>
           <Routes>
-            <Route path="/" element={<Inicio admin={admin} />}></Route>
+            <Route
+              path="/"
+              element={
+                <Inicio
+                  admin={admin}
+                  recetasPrueba={recetasPrueba}
+                  setRecetasPrueba={setRecetasPrueba}
+                />
+              }
+            ></Route>
             <Route
               path="/login"
               element={<Login setAdmin={setAdmin} />}

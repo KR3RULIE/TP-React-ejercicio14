@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
+import { recetasData } from "../../data/recetasPrueba";
 
-const Inicio = ({ admin }) => {
+const Inicio = ({ admin, recetasPrueba, setRecetasPrueba }) => {
   const [showModal, setShowModal] = useState(false);
   const [recetas, setRecetas] = useState([]);
 
@@ -21,6 +22,25 @@ const Inicio = ({ admin }) => {
     const nuevasRecetas = [...recetas, nuevaReceta];
     setRecetas(nuevasRecetas);
     localStorage.setItem("desayunoRecetas", JSON.stringify(nuevasRecetas));
+  };
+
+  // función para agregar productos de prueba
+  const cargarProductosPrueba = () => {
+    const nuevasRecetas = recetasData.filter(
+      (recetaPrueba) =>
+        !recetas.some(
+          (recetaExistente) => recetaExistente.titulo === recetaPrueba.titulo
+        )
+    );
+
+    if (nuevasRecetas.length > 0) {
+      const recetasActualizadas = [...recetas, ...nuevasRecetas];
+      setRecetas(recetasActualizadas);
+      localStorage.setItem(
+        "desayunoRecetas",
+        JSON.stringify(recetasActualizadas)
+      );
+    }
   };
 
   return (
@@ -49,9 +69,14 @@ const Inicio = ({ admin }) => {
           <h2 className="h4 fw-bold mb-3">Desayuno</h2>
           <Desayuno recetas={recetas}></Desayuno>
           {admin && (
-            <Button className="my-3" onClick={() => setShowModal(true)}>
-              Nueva receta...
-            </Button>
+            <>
+              <Button className="me-2" onClick={() => setShowModal(true)}>
+                Nueva receta...
+              </Button>
+              <Button variant="info" onClick={cargarProductosPrueba}>
+                Datos de prueba.
+              </Button>
+            </>
           )}
           {/* Modal */}
           <DesayunoForm

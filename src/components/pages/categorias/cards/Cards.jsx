@@ -10,7 +10,7 @@ const Cards = ({ receta }) => {
         </Card.Subtitle>
         <Card.Text>{receta.descripcion}</Card.Text>
         <Card.Subtitle className="mb-2 text-muted">
-          🛒 Ingredientes
+          🛒 Ingredientes / Tiempo de preparacion/cocción
         </Card.Subtitle>
         <Card.Text>{receta.ingredientes}</Card.Text>
         <div className="mt-auto d-flex justify-content-between">
