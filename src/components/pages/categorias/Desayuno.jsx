@@ -1,39 +1,24 @@
-import { useState, useEffect } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import Cards from "./cards/Cards";
+import { Container, Row, Col } from "react-bootstrap";
 
-const Desayuno = () => {
-  const [recetas, setRecetas] = useState([]);
-
-  useEffect(() => {
-    // Cargar recetas desde localStorage al montar el componente
-    const recetasGuardadas = JSON.parse(localStorage.getItem("desayuno")) || [];
-    setRecetas(recetasGuardadas);
-  }, []);
-
+const Desayuno = ({ recetas }) => {
   return (
-    <Row>
-      {recetas.length === 0 ? (
-        <p>No hay recetas cargadas.</p>
-      ) : (
-        recetas.map((receta, index) => (
-          <Col key={index} md={4} className="mb-3">
-            <Card>
-              <Card.Body>
-                <Card.Title>{receta.titulo}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {receta.descripcion}
-                </Card.Subtitle>
-                <Card.Text>
-                  <strong>Ingredientes:</strong>
-                  <br />
-                  {receta.ingredientes}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))
+    <section>
+      {recetas.length === 0 && (
+        <p className="text-info">Aún no hay recetas...</p>
       )}
-    </Row>
+      {recetas.length !== 0 && (
+        <Container>
+          <Row className="align-items-stretch">
+            {recetas.map((receta, indice) => (
+              <Col key={indice} xs={12} sm={6} md={4} className="mb-4">
+                <Cards receta={receta} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      )}
+    </section>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
-const DesayunoForm = ({ show, handleClose }) => {
+const DesayunoForm = ({ show, handleClose, agregarReceta }) => {
   const {
     register,
     handleSubmit,
@@ -10,16 +10,7 @@ const DesayunoForm = ({ show, handleClose }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // Obtener recetas anteriores
-    const recetasAnteriores =
-      JSON.parse(localStorage.getItem("desayuno")) || [];
-
-    // Agregar nueva receta
-    const nuevasRecetas = [...recetasAnteriores, data];
-
-    // Guardar en localStorage
-    localStorage.setItem("desayuno", JSON.stringify(nuevasRecetas));
-
+    agregarReceta(data);
     handleClose();
     reset(); // limpia el formulario
   };
@@ -38,7 +29,6 @@ const DesayunoForm = ({ show, handleClose }) => {
               placeholder="Café Negro"
               {...register("titulo", { required: "Este campo es obligatorio" })}
             />
-            <Form.Text>{errors.titulo?.message}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -50,7 +40,6 @@ const DesayunoForm = ({ show, handleClose }) => {
                 required: "Este campo es obligatorio",
               })}
             />
-            <Form.Text>{errors.descripcion?.message}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -63,7 +52,6 @@ const DesayunoForm = ({ show, handleClose }) => {
                 required: "Este campo es obligatorio",
               })}
             />
-            <Form.Text>{errors.ingredientes?.message}</Form.Text>
           </Form.Group>
 
           <Button variant="primary" type="submit">

@@ -5,7 +5,23 @@ import DesayunoForm from "./administracion/DesayunoForm";
 
 const Inicio = ({ admin }) => {
   const [showModal, setShowModal] = useState(false);
+  const [recetas, setRecetas] = useState([]);
+
   const handleClose = () => setShowModal(false);
+
+  // Cargar recetas al montar
+  useEffect(() => {
+    const recetasGuardadas =
+      JSON.parse(localStorage.getItem("desayunoRecetas")) || [];
+    setRecetas(recetasGuardadas);
+  }, []);
+
+  // Función para agregar una receta nueva
+  const agregarReceta = (nuevaReceta) => {
+    const nuevasRecetas = [...recetas, nuevaReceta];
+    setRecetas(nuevasRecetas);
+    localStorage.setItem("desayunoRecetas", JSON.stringify(nuevasRecetas));
+  };
 
   return (
     <section className="d-flex">
@@ -31,15 +47,18 @@ const Inicio = ({ admin }) => {
       <div className="flex-grow-1 p-4">
         <section id="desayuno" className="mb-5">
           <h2 className="h4 fw-bold mb-3">Desayuno</h2>
-          <Desayuno></Desayuno> {/* Este componete ara el mapeo de las card.*/}
-          {/*Este boton deberia funcionar como link para ir a DesayunoForm*/}
+          <Desayuno recetas={recetas}></Desayuno>
           {admin && (
-            <Button className="my-2" onClick={() => setShowModal(true)}>
+            <Button className="my-3" onClick={() => setShowModal(true)}>
               Nueva receta...
             </Button>
           )}
           {/* Modal */}
-          <DesayunoForm show={showModal} handleClose={handleClose} />
+          <DesayunoForm
+            show={showModal}
+            handleClose={handleClose}
+            agregarReceta={agregarReceta}
+          />
         </section>
 
         <section id="almuerzo" className="mb-5">
