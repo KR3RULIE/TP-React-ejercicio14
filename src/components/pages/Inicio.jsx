@@ -4,9 +4,10 @@ import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
 import { recetasData } from "../../data/recetasPrueba";
 
-const Inicio = ({ admin, recetasPrueba, setRecetasPrueba }) => {
+const Inicio = ({ admin }) => {
   const [showModal, setShowModal] = useState(false);
   const [recetas, setRecetas] = useState([]);
+  const [puedeAgregarPrueba, setPuedeAgregarPrueba] = useState(true);
 
   const handleClose = () => setShowModal(false);
 
@@ -15,6 +16,14 @@ const Inicio = ({ admin, recetasPrueba, setRecetasPrueba }) => {
     const recetasGuardadas =
       JSON.parse(localStorage.getItem("desayunoRecetas")) || [];
     setRecetas(recetasGuardadas);
+
+    // Verificar si ya se agregaron todas las recetas de prueba
+    const yaExistenTodas = recetasData.every((recetaPrueba) =>
+      recetasGuardadas.some(
+        (recetaExistente) => recetaExistente.titulo === recetaPrueba.titulo
+      )
+    );
+    if (yaExistenTodas) setPuedeAgregarPrueba(false);
   }, []);
 
   // Función para agregar una receta nueva
@@ -24,7 +33,7 @@ const Inicio = ({ admin, recetasPrueba, setRecetasPrueba }) => {
     localStorage.setItem("desayunoRecetas", JSON.stringify(nuevasRecetas));
   };
 
-  // función para agregar productos de prueba
+  // Función para agregar productos de prueba
   const cargarProductosPrueba = () => {
     const nuevasRecetas = recetasData.filter(
       (recetaPrueba) =>
@@ -40,6 +49,16 @@ const Inicio = ({ admin, recetasPrueba, setRecetasPrueba }) => {
         "desayunoRecetas",
         JSON.stringify(recetasActualizadas)
       );
+
+      // Si ya no quedan más recetas de prueba, deshabilitar botón
+      const yaNoQuedan = recetasData.every((recetaPrueba) =>
+        recetasActualizadas.some(
+          (recetaExistente) => recetaExistente.titulo === recetaPrueba.titulo
+        )
+      );
+      if (yaNoQuedan) setPuedeAgregarPrueba(false);
+    } else {
+      setPuedeAgregarPrueba(false); // No hay nada nuevo para cargar
     }
   };
 
@@ -67,17 +86,28 @@ const Inicio = ({ admin, recetasPrueba, setRecetasPrueba }) => {
       <div className="flex-grow-1 p-4">
         <section id="desayuno" className="mb-5">
           <h2 className="h4 fw-bold mb-3">Desayuno</h2>
-          <Desayuno recetas={recetas}></Desayuno>
+          <Desayuno recetas={recetas} />
+
           {admin && (
             <>
               <Button className="me-2" onClick={() => setShowModal(true)}>
                 Nueva receta...
               </Button>
-              <Button variant="info" onClick={cargarProductosPrueba}>
-                Datos de prueba.
+              <Button
+                variant="info"
+                onClick={cargarProductosPrueba}
+                disabled={!puedeAgregarPrueba}
+              >
+                Datos de prueba
               </Button>
+              {!puedeAgregarPrueba && (
+                <p className="text-muted mt-2">
+                  Ya se cargaron todas las recetas de prueba.
+                </p>
+              )}
             </>
           )}
+
           {/* Modal */}
           <DesayunoForm
             show={showModal}
