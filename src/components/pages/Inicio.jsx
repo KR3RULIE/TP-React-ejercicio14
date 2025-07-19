@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
+import { recetasData } from "../../data/recetasPrueba";
+import Swal from "sweetalert2";
 
 const Inicio = ({
   admin,
@@ -13,6 +15,25 @@ const Inicio = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
+
+  const cargarRecetasDePrueba = () => {
+    const nuevasRecetas = recetasData.filter(
+      (recetaPrueba) => !recetas.some((r) => r.id === recetaPrueba.id)
+    );
+
+    nuevasRecetas.forEach((receta) => {
+      cargarRecetas({ ...receta }); // mantiene el id original
+    });
+
+    Swal.fire({
+      title: "¡Recetas cargadas!",
+      text:
+        nuevasRecetas.length > 0
+          ? "Se agregaron recetas de prueba correctamente."
+          : "Todas las recetas de prueba ya están cargadas.",
+      icon: "success",
+    });
+  };
 
   return (
     <section className="d-flex">
@@ -40,6 +61,7 @@ const Inicio = ({
         <section id="desayuno" className="mb-5">
           <h2 className="h4 fw-bold mb-3">Desayunos</h2>
           <Desayuno
+            admin={admin}
             recetas={recetas}
             eliminarReceta={eliminarReceta}
             setRecetaEditando={setRecetaEditando}
@@ -57,7 +79,9 @@ const Inicio = ({
               >
                 Nueva receta...
               </Button>
-              <Button variant="info">Datos de prueba</Button>
+              <Button variant="info" onClick={cargarRecetasDePrueba}>
+                Datos de prueba
+              </Button>
             </>
           )}
 

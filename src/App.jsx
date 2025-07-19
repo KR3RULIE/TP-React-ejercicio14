@@ -6,7 +6,6 @@ import Error404 from "./components/pages/Error404";
 import Login from "./components/pages/Login";
 import Inicio from "./components/pages/Inicio";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const adminLogeado = sessionStorage.getItem("adminKey") || false;

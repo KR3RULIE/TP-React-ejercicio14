@@ -1,7 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-const Cards = ({ receta, indice, eliminarReceta, onEditar }) => {
+const Cards = ({ admin, receta, eliminarReceta, onEditar }) => {
   const borrarReceta = () => {
     Swal.fire({
       title: "Eliminar esta receta?",
@@ -33,7 +33,7 @@ const Cards = ({ receta, indice, eliminarReceta, onEditar }) => {
   };
 
   return (
-    <Card className="h-100 d-flex flex-column">
+    <Card className="h-100 w-100 d-flex flex-column">
       <Card.Body className="d-flex flex-column">
         <Card.Title className="text-center mb-4">{receta.titulo}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
@@ -44,14 +44,18 @@ const Cards = ({ receta, indice, eliminarReceta, onEditar }) => {
           🛒 Ingredientes / Tiempo de preparacion/cocción
         </Card.Subtitle>
         <Card.Text>{receta.ingredientes}</Card.Text>
-        <div className="mt-auto d-flex justify-content-between">
+        <div className="mt-auto d-flex flex-wrap gap-2 justify-content-between">
           <Button variant="success">Ver detalle...</Button>
-          <Button variant="info" onClick={() => onEditar(receta)}>
-            Editar receta
-          </Button>
-          <Button variant="danger" onClick={borrarReceta}>
-            Borrar 🗑
-          </Button>
+          {admin && (
+            <>
+              <Button variant="info" onClick={() => onEditar(receta)}>
+                Editar receta
+              </Button>
+              <Button variant="danger" onClick={borrarReceta}>
+                Borrar 🗑
+              </Button>
+            </>
+          )}
         </div>
       </Card.Body>
     </Card>
