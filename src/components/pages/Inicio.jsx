@@ -36,21 +36,23 @@ const Inicio = ({
   };
 
   return (
-    <section className="d-flex">
-      {/* Navegación lateral */}
-      <aside className="bg-light border-end p-3 sticky-top aside">
+    <section className="d-flex flex-column flex-md-row">
+      <aside
+        className="bg-light border-bottom border-md-end p-3 sticky-top bg-dark-subtle"
+        style={{ zIndex: 1020 }}
+      >
         <h2 className="text-danger">Categorias</h2>
-        <nav className="nav flex-column">
-          <a href="#desayuno" className="nav-link text-primary">
+        <nav className="nav flex-row flex-md-column overflow-auto">
+          <a href="#desayuno" className="nav-link text-primary px-2 px-md-0">
             Desayuno
           </a>
-          <a href="#almuerzo" className="nav-link text-primary">
+          <a href="#almuerzo" className="nav-link text-primary px-2 px-md-0">
             Almuerzo
           </a>
-          <a href="#merienda" className="nav-link text-primary">
+          <a href="#merienda" className="nav-link text-primary px-2 px-md-0">
             Merienda
           </a>
-          <a href="#cena" className="nav-link text-primary">
+          <a href="#cena" className="nav-link text-primary px-2 px-md-0">
             Cena
           </a>
         </nav>
