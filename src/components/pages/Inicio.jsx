@@ -1,67 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
-import { recetasData } from "../../data/recetasPrueba";
-import { v4 as uuidv4 } from "uuid";
 
-const Inicio = ({ admin }) => {
+const Inicio = ({ admin, cargarRecetas, recetas }) => {
   const [showModal, setShowModal] = useState(false);
-  const [recetas, setRecetas] = useState([]);
-  const [puedeAgregarPrueba, setPuedeAgregarPrueba] = useState(true);
-
   const handleClose = () => setShowModal(false);
-
-  // Cargar recetas al montar
-  useEffect(() => {
-    const recetasGuardadas =
-      JSON.parse(localStorage.getItem("desayunoRecetas")) || [];
-    setRecetas(recetasGuardadas);
-
-    // Verificar si ya se agregaron todas las recetas de prueba
-    const yaExistenTodas = recetasData.every((recetaPrueba) =>
-      recetasGuardadas.some(
-        (recetaExistente) => recetaExistente.titulo === recetaPrueba.titulo
-      )
-    );
-    if (yaExistenTodas) setPuedeAgregarPrueba(false);
-  }, []);
-
-  // Función para agregar una receta nueva
-  const agregarReceta = (nuevaReceta) => {
-    const nuevasRecetas = [...recetas, nuevaReceta];
-    setRecetas(nuevasRecetas);
-    localStorage.setItem("desayunoRecetas", JSON.stringify(nuevasRecetas));
-  };
-
-  // Función para agregar productos de prueba
-  const cargarProductosPrueba = () => {
-    const nuevasRecetas = recetasData.filter(
-      (recetaPrueba) =>
-        !recetas.some(
-          (recetaExistente) => recetaExistente.titulo === recetaPrueba.titulo
-        )
-    );
-
-    if (nuevasRecetas.length > 0) {
-      const recetasActualizadas = [...recetas, ...nuevasRecetas];
-      setRecetas(recetasActualizadas);
-      localStorage.setItem(
-        "desayunoRecetas",
-        JSON.stringify(recetasActualizadas)
-      );
-
-      // Si ya no quedan más recetas de prueba, deshabilitar botón
-      const yaNoQuedan = recetasData.every((recetaPrueba) =>
-        recetasActualizadas.some(
-          (recetaExistente) => recetaExistente.titulo === recetaPrueba.titulo
-        )
-      );
-      if (yaNoQuedan) setPuedeAgregarPrueba(false);
-    } else {
-      setPuedeAgregarPrueba(false); // No hay nada nuevo para cargar
-    }
-  };
 
   return (
     <section className="d-flex">
@@ -95,18 +39,7 @@ const Inicio = ({ admin }) => {
               <Button className="me-2" onClick={() => setShowModal(true)}>
                 Nueva receta...
               </Button>
-              <Button
-                variant="info"
-                onClick={cargarProductosPrueba}
-                disabled={!puedeAgregarPrueba}
-              >
-                Datos de prueba
-              </Button>
-              {!puedeAgregarPrueba && (
-                <p className="text-muted mt-2">
-                  Ya se cargaron todas las recetas de prueba.
-                </p>
-              )}
+              <Button variant="info">Datos de prueba</Button>
             </>
           )}
 
@@ -114,7 +47,7 @@ const Inicio = ({ admin }) => {
           <DesayunoForm
             show={showModal}
             handleClose={handleClose}
-            agregarReceta={agregarReceta}
+            cargarRecetas={cargarRecetas}
           />
         </section>
 

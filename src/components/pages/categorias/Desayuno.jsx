@@ -10,8 +10,8 @@ const Desayuno = ({ recetas }) => {
       {recetas.length !== 0 && (
         <Container>
           <Row className="align-items-stretch">
-            {recetas.map((receta, indice) => (
-              <Col key={indice} xs={12} md={6} lg={4} className="mb-4">
+            {recetas.map((receta) => (
+              <Col key={receta.id} xs={12} md={6} lg={4} className="mb-4">
                 <Cards receta={receta} />
               </Col>
             ))}

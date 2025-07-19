@@ -1,7 +1,8 @@
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-const DesayunoForm = ({ show, handleClose, agregarReceta }) => {
+const DesayunoForm = ({ show, handleClose, cargarRecetas }) => {
   const {
     register,
     handleSubmit,
@@ -10,7 +11,13 @@ const DesayunoForm = ({ show, handleClose, agregarReceta }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    agregarReceta(data);
+    if (cargarRecetas(data)) {
+      Swal.fire({
+        title: "Producto creado",
+        text: `El producto ${data.titulo} fue creado correctamente`,
+        icon: "success",
+      });
+    }
     handleClose();
     reset(); // limpia el formulario
   };
