@@ -48,7 +48,13 @@ const Inicio = ({
 
           {admin && (
             <>
-              <Button className="me-2" onClick={() => setShowModal(true)}>
+              <Button
+                className="me-2"
+                onClick={() => {
+                  setRecetaEditando(null);
+                  setShowModal(true);
+                }}
+              >
                 Nueva receta...
               </Button>
               <Button variant="info">Datos de prueba</Button>

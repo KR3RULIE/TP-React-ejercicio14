@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 
 const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
   const {
@@ -12,36 +13,50 @@ const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
   } = useForm();
 
   useEffect(() => {
-    if (recetaEditando) {
-      reset(recetaEditando); // rellena el form
+    if (show) {
+      if (recetaEditando) {
+        reset(recetaEditando);
+      } else {
+        reset({
+          titulo: "",
+          descripcion: "",
+          ingredientes: "",
+        });
+      }
     }
-  }, [recetaEditando, reset]);
+  }, [show, recetaEditando, reset]);
 
   const onSubmit = (data) => {
     if (recetaEditando) {
-      // Modo editar
-      data.id = recetaEditando.id; // mantener el mismo id
+      // Modo editar: mantener el mismo ID
+      data.id = recetaEditando.id;
     } else {
-      // Modo crear
+      // Modo crear: generar un nuevo ID
       data.id = uuidv4();
     }
 
-    cargarRecetas(data); // sea nueva o editada
+    cargarRecetas(data);
+
     Swal.fire({
       title: recetaEditando ? "Receta actualizada" : "Producto creado",
-      text: `La receta ${data.titulo} fue ${
+      text: `La receta "${data.titulo}" fue ${
         recetaEditando ? "actualizada" : "creada"
       } correctamente`,
       icon: "success",
     });
+
     handleClose();
-    reset(); // limpia el formulario
+    reset();
   };
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Agregar una Receta del Desayuno</Modal.Title>
+        <Modal.Title>
+          {recetaEditando
+            ? "Editar Receta del Desayuno"
+            : "Agregar una Receta del Desayuno"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -80,7 +95,7 @@ const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Agregar
+            {recetaEditando ? "Guardar cambios" : "Agregar"}
           </Button>
         </Form>
       </Modal.Body>
