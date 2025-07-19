@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-const DesayunoForm = ({ show, handleClose, cargarRecetas }) => {
+const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
   const {
     register,
     handleSubmit,
@@ -10,14 +11,29 @@ const DesayunoForm = ({ show, handleClose, cargarRecetas }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    if (cargarRecetas(data)) {
-      Swal.fire({
-        title: "Producto creado",
-        text: `El producto ${data.titulo} fue creado correctamente`,
-        icon: "success",
-      });
+  useEffect(() => {
+    if (recetaEditando) {
+      reset(recetaEditando); // rellena el form
     }
+  }, [recetaEditando, reset]);
+
+  const onSubmit = (data) => {
+    if (recetaEditando) {
+      // Modo editar
+      data.id = recetaEditando.id; // mantener el mismo id
+    } else {
+      // Modo crear
+      data.id = uuidv4();
+    }
+
+    cargarRecetas(data); // sea nueva o editada
+    Swal.fire({
+      title: recetaEditando ? "Receta actualizada" : "Producto creado",
+      text: `La receta ${data.titulo} fue ${
+        recetaEditando ? "actualizada" : "creada"
+      } correctamente`,
+      icon: "success",
+    });
     handleClose();
     reset(); // limpia el formulario
   };

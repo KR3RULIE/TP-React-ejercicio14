@@ -3,7 +3,14 @@ import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
 
-const Inicio = ({ admin, cargarRecetas, recetas }) => {
+const Inicio = ({
+  admin,
+  cargarRecetas,
+  recetas,
+  eliminarReceta,
+  recetaEditando,
+  setRecetaEditando,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
 
@@ -32,7 +39,12 @@ const Inicio = ({ admin, cargarRecetas, recetas }) => {
       <div className="flex-grow-1 p-4">
         <section id="desayuno" className="mb-5">
           <h2 className="h4 fw-bold mb-3">Desayunos</h2>
-          <Desayuno recetas={recetas} />
+          <Desayuno
+            recetas={recetas}
+            eliminarReceta={eliminarReceta}
+            setRecetaEditando={setRecetaEditando}
+            setShowModal={setShowModal}
+          />
 
           {admin && (
             <>
@@ -48,6 +60,7 @@ const Inicio = ({ admin, cargarRecetas, recetas }) => {
             show={showModal}
             handleClose={handleClose}
             cargarRecetas={cargarRecetas}
+            recetaEditando={recetaEditando}
           />
         </section>
 

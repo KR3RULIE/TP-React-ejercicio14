@@ -14,14 +14,33 @@ function App() {
     JSON.parse(localStorage.getItem("recetasDesayuno")) || [];
   const [admin, setAdmin] = useState(adminLogeado);
   const [recetas, setRecetas] = useState(recetasLocalstorage);
+  const [recetaEditando, setRecetaEditando] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("recetasDesayuno", JSON.stringify(recetas));
   }, [recetas]);
 
   const cargarRecetas = (recetaNueva) => {
-    recetaNueva.id = uuidv4();
-    setRecetas([...recetas, recetaNueva]);
+    const existe = recetas.find((r) => r.id === recetaNueva.id);
+
+    if (existe) {
+      // Actualiza
+      const nuevasRecetas = recetas.map((r) =>
+        r.id === recetaNueva.id ? recetaNueva : r
+      );
+      setRecetas(nuevasRecetas);
+    } else {
+      // Agrega
+      setRecetas([...recetas, recetaNueva]);
+    }
+    return true;
+  };
+
+  const eliminarReceta = (idReceta) => {
+    const recetasFiltradas = recetas.filter(
+      (itemReceta) => itemReceta.id !== idReceta
+    );
+    setRecetas(recetasFiltradas);
     return true;
   };
 
@@ -38,6 +57,9 @@ function App() {
                   admin={admin}
                   cargarRecetas={cargarRecetas}
                   recetas={recetas}
+                  eliminarReceta={eliminarReceta}
+                  recetaEditando={recetaEditando}
+                  setRecetaEditando={setRecetaEditando}
                 />
               }
             ></Route>
