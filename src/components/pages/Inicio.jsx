@@ -1,38 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Desayuno from "./categorias/Desayuno";
 import DesayunoForm from "./administracion/DesayunoForm";
-import { recetasData } from "../../data/recetasPrueba";
 import Swal from "sweetalert2";
+import { leerRecetas } from "../../helpers/queries";
 
-const Inicio = ({
-  admin,
-  cargarRecetas,
-  recetas,
-  eliminarReceta,
-  recetaEditando,
-  setRecetaEditando,
-}) => {
+const Inicio = ({ admin }) => {
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
 
-  const cargarRecetasDePrueba = () => {
-    const nuevasRecetas = recetasData.filter(
-      (recetaPrueba) => !recetas.some((r) => r.id === recetaPrueba.id)
-    );
+  const [listaRecetas, setListaRecetas] = useState([]);
 
-    nuevasRecetas.forEach((receta) => {
-      cargarRecetas({ ...receta }); // mantiene el id original
-    });
+  useEffect(() => {
+    obtenerRecetas();
+  }, []);
 
-    Swal.fire({
-      title: "¡Recetas cargadas!",
-      text:
-        nuevasRecetas.length > 0
-          ? "Se agregaron recetas de prueba correctamente."
-          : "Todas las recetas de prueba ya están cargadas.",
-      icon: "success",
-    });
+  const obtenerRecetas = async () => {
+    const respuesta = await leerRecetas();
+    if (respuesta.status === 200) {
+      const datos = await respuesta.json();
+      setListaRecetas(datos);
+    } else {
+      Swal.fire(
+        "Ocurrió un error",
+        "No se pudieron cargar las recetas",
+        "error"
+      );
+    }
   };
 
   return (
@@ -64,10 +58,8 @@ const Inicio = ({
           <h2 className="h4 fw-bold mb-3">Desayunos</h2>
           <Desayuno
             admin={admin}
-            recetas={recetas}
-            eliminarReceta={eliminarReceta}
-            setRecetaEditando={setRecetaEditando}
             setShowModal={setShowModal}
+            listaRecetas={listaRecetas}
           />
 
           {admin && (
@@ -81,19 +73,11 @@ const Inicio = ({
               >
                 Nueva receta...
               </Button>
-              <Button variant="info" onClick={cargarRecetasDePrueba}>
-                Datos de prueba
-              </Button>
             </>
           )}
 
           {/* Modal */}
-          <DesayunoForm
-            show={showModal}
-            handleClose={handleClose}
-            cargarRecetas={cargarRecetas}
-            recetaEditando={recetaEditando}
-          />
+          <DesayunoForm show={showModal} handleClose={handleClose} />
         </section>
 
         <section id="almuerzo" className="mb-5">

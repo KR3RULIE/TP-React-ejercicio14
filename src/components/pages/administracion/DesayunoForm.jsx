@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 
-const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
+const DesayunoForm = ({ show, handleClose }) => {
   const {
     register,
     handleSubmit,
@@ -12,38 +12,38 @@ const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (show) {
-      if (recetaEditando) {
-        reset(recetaEditando);
-      } else {
-        reset({
-          titulo: "",
-          descripcion: "",
-          ingredientes: "",
-        });
-      }
-    }
-  }, [show, recetaEditando, reset]);
+  // useEffect(() => {
+  //   if (show) {
+  //     if (recetaEditando) {
+  //       reset(recetaEditando);
+  //     } else {
+  //       reset({
+  //         titulo: "",
+  //         descripcion: "",
+  //         ingredientes: "",
+  //       });
+  //     }
+  //   }
+  // }, [show, recetaEditando, reset]);
 
   const onSubmit = (data) => {
-    if (recetaEditando) {
-      // Modo editar: mantener el mismo ID
-      data.id = recetaEditando.id;
-    } else {
-      // Modo crear: generar un nuevo ID
-      data.id = uuidv4();
-    }
+    // if (recetaEditando) {
+    //   // Modo editar: mantener el mismo ID
+    //   data.id = recetaEditando.id;
+    // } else {
+    //   // Modo crear: generar un nuevo ID
+    //   data.id = uuidv4();
+    // }
 
-    cargarRecetas(data);
+    // cargarRecetas(data);
 
-    Swal.fire({
-      title: recetaEditando ? "Receta actualizada" : "Producto creado",
-      text: `La receta "${data.titulo}" fue ${
-        recetaEditando ? "actualizada" : "creada"
-      } correctamente`,
-      icon: "success",
-    });
+    // Swal.fire({
+    //   title: recetaEditando ? "Receta actualizada" : "Producto creado",
+    //   text: `La receta "${data.titulo}" fue ${
+    //     recetaEditando ? "actualizada" : "creada"
+    //   } correctamente`,
+    //   icon: "success",
+    // });
 
     handleClose();
     reset();
@@ -53,9 +53,9 @@ const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          {recetaEditando
+          {/* {recetaEditando
             ? "Editar Receta del Desayuno"
-            : "Agregar una Receta del Desayuno"}
+            : "Agregar una Receta del Desayuno"} */}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -95,7 +95,7 @@ const DesayunoForm = ({ show, handleClose, cargarRecetas, recetaEditando }) => {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {recetaEditando ? "Guardar cambios" : "Agregar"}
+            {/* {recetaEditando ? "Guardar cambios" : "Agregar"} */}
           </Button>
         </Form>
       </Modal.Body>
