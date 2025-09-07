@@ -4,7 +4,12 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { crearReceta, editarReceta } from "../../../helpers/queries";
 
-const DesayunoForm = ({ show, handleClose, receta }) => {
+const DesayunoForm = ({
+  show,
+  handleClose,
+  receta,
+  actualizarListaRecetas,
+}) => {
   const {
     register,
     handleSubmit,
@@ -30,6 +35,7 @@ const DesayunoForm = ({ show, handleClose, receta }) => {
           } correctamente`,
           icon: "success",
         });
+        actualizarListaRecetas();
         handleClose();
         reset();
       } else {

@@ -16,6 +16,7 @@ const Inicio = ({ admin }) => {
 
   useEffect(() => {
     obtenerRecetas();
+    actualizarListaRecetas();
   }, []);
 
   const obtenerRecetas = async () => {
@@ -30,6 +31,12 @@ const Inicio = ({ admin }) => {
         "error"
       );
     }
+  };
+
+  const actualizarListaRecetas = async () => {
+    const respuestaTareas = await leerRecetas();
+    const tareasActualizadas = await respuestaTareas.json();
+    setListaRecetas(tareasActualizadas);
   };
 
   return (
@@ -64,6 +71,7 @@ const Inicio = ({ admin }) => {
             setShowModal={setShowModal}
             listaRecetas={listaRecetas}
             setRecetaSeleccionada={setRecetaSeleccionada}
+            actualizarListaRecetas={actualizarListaRecetas}
           />
 
           {admin && (
@@ -85,6 +93,7 @@ const Inicio = ({ admin }) => {
             show={showModal}
             handleClose={handleClose}
             receta={recetaSeleccionada}
+            actualizarListaRecetas={actualizarListaRecetas}
           />
         </section>
 
