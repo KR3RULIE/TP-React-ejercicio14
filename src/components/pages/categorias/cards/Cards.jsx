@@ -1,6 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 import { borrarRecetasPorID } from "../../../../helpers/queries";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const Cards = ({ admin, receta, onEditar, actualizarListaRecetas }) => {
   return (
@@ -18,7 +19,9 @@ const Cards = ({ admin, receta, onEditar, actualizarListaRecetas }) => {
       </Card.Body>
       <Card.Footer className="text-muted text-center bg-light-subtle">
         <div className="mt-auto d-flex justify-content-center gap-2">
-          <Button variant="success">Ver detalle...</Button>
+          <Link className="me-2 btn btn-success" to={"/detalle/" + receta._id}>
+            Ver detalle...
+          </Link>
           {admin && (
             <>
               <Button variant="info" onClick={onEditar}>

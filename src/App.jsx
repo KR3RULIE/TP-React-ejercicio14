@@ -5,6 +5,7 @@ import Footer from "./components/shared/Footer";
 import Error404 from "./components/pages/Error404";
 import Login from "./components/pages/Login";
 import Inicio from "./components/pages/Inicio";
+import Detalle from "./components/pages/Detalle";
 import { useState } from "react";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               path="/login"
               element={<Login setAdmin={setAdmin} />}
             ></Route>
+            <Route path="/detalle/:id" element={<Detalle admin={admin} />} />
             <Route path="*" element={<Error404 />}></Route>
           </Routes>
         </main>
