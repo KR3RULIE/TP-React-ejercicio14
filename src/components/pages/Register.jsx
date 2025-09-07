@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const Register = ({ setUsuario }) => {
+  const navegacion = useNavigate();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ const Register = ({ setUsuario }) => {
           text: `El usuario ${data.nombreUsuario} fue creado correctamente`,
           icon: "success",
         }).then(() => {
-          navigate("/login"); // redirige al login después del OK
+          navegacion("/login"); // redirige al login después del OK
         });
         setUsuario(data); // Actualizamos el estado del usuario
       } else {
