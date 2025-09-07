@@ -7,8 +7,11 @@ import { leerRecetas } from "../../helpers/queries";
 
 const Inicio = ({ admin }) => {
   const [showModal, setShowModal] = useState(false);
-  const handleClose = () => setShowModal(false);
-
+  const handleClose = () => {
+    setShowModal(false);
+    setRecetaSeleccionada(null);
+  };
+  const [recetaSeleccionada, setRecetaSeleccionada] = useState(null);
   const [listaRecetas, setListaRecetas] = useState([]);
 
   useEffect(() => {
@@ -60,6 +63,7 @@ const Inicio = ({ admin }) => {
             admin={admin}
             setShowModal={setShowModal}
             listaRecetas={listaRecetas}
+            setRecetaSeleccionada={setRecetaSeleccionada}
           />
 
           {admin && (
@@ -67,7 +71,7 @@ const Inicio = ({ admin }) => {
               <Button
                 className="me-2"
                 onClick={() => {
-                  setRecetaEditando(null);
+                  setRecetaSeleccionada(null);
                   setShowModal(true);
                 }}
               >
@@ -77,7 +81,11 @@ const Inicio = ({ admin }) => {
           )}
 
           {/* Modal */}
-          <DesayunoForm show={showModal} handleClose={handleClose} />
+          <DesayunoForm
+            show={showModal}
+            handleClose={handleClose}
+            receta={recetaSeleccionada}
+          />
         </section>
 
         <section id="almuerzo" className="mb-5">

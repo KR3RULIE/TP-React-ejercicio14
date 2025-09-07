@@ -2,8 +2,8 @@ import { Card, Button } from "react-bootstrap";
 
 const Cards = ({ admin, receta }) => {
   return (
-    <Card>
-      <Card.Header className="text-center text-warning mb-4">
+    <Card className="h-100 shadow-sm">
+      <Card.Header className="text-center text-warning mb-4 bg-light-subtle">
         {receta.titulo}
       </Card.Header>
       <Card.Body>
@@ -14,13 +14,13 @@ const Cards = ({ admin, receta }) => {
         </Card.Subtitle>
         <Card.Text>{receta.ingredientes}</Card.Text>
       </Card.Body>
-      <Card.Footer className="text-muted text-center">
-        <div className="mt-auto d-flex flex-wrap gap-2 justify-content-between">
+      <Card.Footer className="text-muted text-center bg-light-subtle">
+        <div className="mt-auto d-flex justify-content-center gap-2">
           <Button variant="success">Ver detalle...</Button>
           {admin && (
             <>
-              <Button variant="info">Editar receta</Button>
-              <Button variant="danger">Borrar 🗑</Button>
+              <Button variant="info">Editar</Button>
+              <Button variant="danger">🗑</Button>
             </>
           )}
         </div>

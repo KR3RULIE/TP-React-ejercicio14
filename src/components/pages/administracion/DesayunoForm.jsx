@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { v4 as uuidv4 } from "uuid";
+import { crearReceta, editarReceta } from "../../../helpers/queries";
 
-const DesayunoForm = ({ show, handleClose }) => {
+const DesayunoForm = ({ show, handleClose, receta }) => {
   const {
     register,
     handleSubmit,
@@ -12,54 +12,67 @@ const DesayunoForm = ({ show, handleClose }) => {
     formState: { errors },
   } = useForm();
 
-  // useEffect(() => {
-  //   if (show) {
-  //     if (recetaEditando) {
-  //       reset(recetaEditando);
-  //     } else {
-  //       reset({
-  //         titulo: "",
-  //         descripcion: "",
-  //         ingredientes: "",
-  //       });
-  //     }
-  //   }
-  // }, [show, recetaEditando, reset]);
+  const guardarReceta = async (data) => {
+    try {
+      let respuesta;
 
-  const onSubmit = (data) => {
-    // if (recetaEditando) {
-    //   // Modo editar: mantener el mismo ID
-    //   data.id = recetaEditando.id;
-    // } else {
-    //   // Modo crear: generar un nuevo ID
-    //   data.id = uuidv4();
-    // }
+      if (data._id) {
+        respuesta = await editarReceta(data, data._id);
+      } else {
+        respuesta = await crearReceta(data);
+      }
 
-    // cargarRecetas(data);
-
-    // Swal.fire({
-    //   title: recetaEditando ? "Receta actualizada" : "Producto creado",
-    //   text: `La receta "${data.titulo}" fue ${
-    //     recetaEditando ? "actualizada" : "creada"
-    //   } correctamente`,
-    //   icon: "success",
-    // });
-
-    handleClose();
-    reset();
+      if (respuesta.status === 201 || respuesta.status === 200) {
+        Swal.fire({
+          title: data._id ? "Receta actualizada" : "Receta creada",
+          text: `La receta "${data.titulo}" fue ${
+            data._id ? "actualizada" : "creada"
+          } correctamente`,
+          icon: "success",
+        });
+        handleClose();
+        reset();
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo guardar la receta. Intenta nuevamente.",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.message || "Ocurrió un problema con el servidor",
+        icon: "error",
+      });
+    }
   };
+
+  useEffect(() => {
+    if (show) {
+      if (receta?._id) {
+        reset(receta);
+      } else {
+        reset({
+          titulo: "",
+          descripcion: "",
+          ingredientes: "",
+        });
+      }
+    }
+  }, [show, receta, reset]);
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          {/* {recetaEditando
+          {receta?._id
             ? "Editar Receta del Desayuno"
-            : "Agregar una Receta del Desayuno"} */}
+            : "Agregar una Receta del Desayuno"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(guardarReceta)}>
           <Form.Group className="mb-3">
             <Form.Label>Título</Form.Label>
             <Form.Control
@@ -95,7 +108,7 @@ const DesayunoForm = ({ show, handleClose }) => {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {/* {recetaEditando ? "Guardar cambios" : "Agregar"} */}
+            {receta?._id ? "Guardar cambios" : "Agregar"}
           </Button>
         </Form>
       </Modal.Body>

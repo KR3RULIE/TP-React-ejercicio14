@@ -9,7 +9,7 @@ const Desayuno = ({ admin, listaRecetas }) => {
       )}
       {listaRecetas.length !== 0 && (
         <Container>
-          <Row>
+          <Row sm={1} md={2} lg={3} xl={4} className="g-4">
             {listaRecetas.map((receta) => (
               <Col key={receta._id} className="mb-4">
                 <Cards admin={admin} receta={receta}></Cards>
