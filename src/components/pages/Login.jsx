@@ -2,7 +2,7 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-const Login = ({ setAdmin }) => {
+const Login = ({ setAdmin, usuario }) => {
   const {
     register,
     handleSubmit,

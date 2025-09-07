@@ -41,10 +41,7 @@ const Inicio = ({ admin }) => {
 
   return (
     <section className="d-flex flex-column flex-md-row">
-      <aside
-        className="bg-light border-bottom border-md-end p-3 sticky-top bg-dark-subtle"
-        style={{ zIndex: 1020 }}
-      >
+      <aside className="bg-light border-bottom border-md-end p-3 sticky-top bg-dark-subtle">
         <h2 className="text-danger">Categorias</h2>
         <nav className="nav flex-row flex-md-column overflow-auto">
           <a href="#desayuno" className="nav-link text-primary px-2 px-md-0">

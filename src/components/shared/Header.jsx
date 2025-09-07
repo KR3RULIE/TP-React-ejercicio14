@@ -34,7 +34,7 @@ const Header = ({ admin, setAdmin }) => {
                 <div className="d-flex gap-1 my-auto">
                   <div className="circle"></div>
                   <p className="text-center text-warning my-auto">
-                    ADMIN{" "}
+                    ADMIN
                     <small className="text-success my-auto">(activo)</small>
                   </p>
                 </div>
@@ -43,9 +43,14 @@ const Header = ({ admin, setAdmin }) => {
                 </Button>
               </>
             ) : (
-              <NavLink className="nav-link" to={"/login"}>
-                Iniciar Sesión
-              </NavLink>
+              <>
+                <NavLink className="nav-link" to={"/login"}>
+                  Iniciar Sesión
+                </NavLink>
+                <NavLink className="nav-link" to={"/register"}>
+                  Registrarse
+                </NavLink>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
