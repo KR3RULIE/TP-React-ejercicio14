@@ -22,8 +22,8 @@ const Cards = ({ admin, receta, onEditar, actualizarListaRecetas }) => {
           <Link className="me-2 btn btn-success" to={"/detalle/" + receta._id}>
             Ver detalle...
           </Link>
-          {admin && (
-            <>
+          {admin.token && (
+            <div className="d-flex gap-2">
               <Button variant="info" onClick={onEditar}>
                 Editar
               </Button>
@@ -62,7 +62,7 @@ const Cards = ({ admin, receta, onEditar, actualizarListaRecetas }) => {
               >
                 🗑
               </Button>
-            </>
+            </div>
           )}
         </div>
       </Card.Footer>

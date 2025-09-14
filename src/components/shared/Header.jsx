@@ -7,8 +7,7 @@ import { NavLink, Link, useNavigate } from "react-router";
 const Header = ({ admin, setAdmin }) => {
   const navegacion = useNavigate();
   const logout = () => {
-    setAdmin(false);
-    sessionStorage.removeItem("adminKey");
+    setAdmin({});
     navegacion("/");
   };
 
@@ -29,13 +28,15 @@ const Header = ({ admin, setAdmin }) => {
             </NavLink>
           </Nav>
           <Nav className="ms-auto">
-            {admin ? (
+            {admin.token ? (
               <>
                 <div className="d-flex gap-1 my-auto">
-                  <div className="circle"></div>
                   <p className="text-center text-warning my-auto">
-                    ADMIN
-                    <small className="text-success my-auto">(activo)</small>
+                    ADMIN:
+                    <span className="text-danger my-auto">
+                      {" "}
+                      {admin.nombreUsuario}
+                    </span>
                   </p>
                 </div>
                 <Button variant="link" className="nav-link" onClick={logout}>
