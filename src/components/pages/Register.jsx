@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { crearUsuario } from "../../helpers/queries";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-const Register = ({ setUsuario }) => {
+const Register = () => {
   const navegacion = useNavigate();
   const {
     register,
@@ -29,7 +29,6 @@ const Register = ({ setUsuario }) => {
         }).then(() => {
           navegacion("/login"); // redirige al login después del OK
         });
-        setUsuario(data); // Actualizamos el estado del usuario
       } else {
         Swal.fire({
           title: "Error",

@@ -1,8 +1,10 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { login } from "../../helpers/queries";
+import Swal from "sweetalert2";
 
-const Login = ({ setAdmin, usuario }) => {
+const Login = ({ setAdmin }) => {
   const {
     register,
     handleSubmit,
@@ -11,7 +13,23 @@ const Login = ({ setAdmin, usuario }) => {
 
   const navegacion = useNavigate();
 
-  const iniciarSesion = (usuario) => {
+  const iniciarSesion = async (usuario) => {
+    const respuesta = await login(usuario);
+    if (respuesta.status === 200) {
+      const usuarioLogeado = await respuesta.json();
+      Swal.fire({
+        title: "Inicio de sesión exitoso",
+        text: `Bienvenido/a ${usuarioLogeado.nombreUsuario}`,
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Credenciales incorrectas",
+        icon: "error",
+      });
+    }
+
     if (
       usuario.email === import.meta.env.VITE_API_EMAIL &&
       usuario.pw === import.meta.env.VITE_API_PW

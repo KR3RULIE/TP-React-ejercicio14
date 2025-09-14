@@ -11,7 +11,7 @@ import { useState } from "react";
 
 function App() {
   const [usuario, setUsuario] = useState([]);
-  const adminLogeado = sessionStorage.getItem("adminKey") || false;
+  const adminLogeado = sessionStorage.getItem("adminKey") || {};
   const [admin, setAdmin] = useState(adminLogeado);
 
   return (
@@ -23,11 +23,11 @@ function App() {
             <Route path="/" element={<Inicio admin={admin} />}></Route>
             <Route
               path="/login"
-              element={<Login usuario={usuario} setAdmin={setAdmin} />}
+              element={<Login setAdmin={setAdmin} />}
             ></Route>
             <Route
               path="/register"
-              element={<Register setUsuario={setUsuario}></Register>}
+              element={<Register></Register>}
             />
             <Route path="/detalle/:id" element={<Detalle admin={admin} />} />
             <Route path="*" element={<Error404 />}></Route>
