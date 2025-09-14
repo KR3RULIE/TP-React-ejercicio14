@@ -10,7 +10,7 @@ import Register from "./components/pages/Register";
 import { useEffect, useState } from "react";
 
 function App() {
-  const adminLogeado = sessionStorage.getItem("adminKey") || {};
+  const adminLogeado = JSON.parse(sessionStorage.getItem("adminKey")) || {};
   const [admin, setAdmin] = useState(adminLogeado);
 
   useEffect(() => {

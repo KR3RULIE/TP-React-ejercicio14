@@ -18,7 +18,7 @@ const Cards = ({ admin, receta, onEditar, actualizarListaRecetas }) => {
         <Card.Text>{receta.ingredientes}</Card.Text>
       </Card.Body>
       <Card.Footer className="text-muted text-center bg-light-subtle">
-        <div className="mt-auto d-flex justify-content-center gap-2">
+        <div className="mt-auto d-flex justify-content-center">
           <Link className="me-2 btn btn-success" to={"/detalle/" + receta._id}>
             Ver detalle...
           </Link>
