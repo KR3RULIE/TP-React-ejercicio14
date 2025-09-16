@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Row, Col, Card } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { Link, useParams } from "react-router";
 import { obtenerRecetaPorID } from "../../helpers/queries";
 

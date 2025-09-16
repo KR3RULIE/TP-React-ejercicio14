@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap";
 import img404 from "../../img/pagina-error-404.jpg";
 import { NavLink } from "react-router";
 

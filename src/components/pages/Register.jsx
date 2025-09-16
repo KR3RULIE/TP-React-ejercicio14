@@ -27,7 +27,7 @@ const Register = () => {
           text: `El usuario ${data.nombreUsuario} fue creado correctamente`,
           icon: "success",
         }).then(() => {
-          navegacion("/login"); // redirige al login después del OK
+          navegacion("/login");
         });
       } else {
         Swal.fire({
@@ -55,7 +55,6 @@ const Register = () => {
             </Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
-                {/* Nombre de usuario */}
                 <Form.Group className="mb-3" controlId="nombreUsuario">
                   <Form.Label>Nombre de usuario</Form.Label>
                   <Form.Control
@@ -80,7 +79,6 @@ const Register = () => {
                   )}
                 </Form.Group>
 
-                {/* Email */}
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -100,7 +98,6 @@ const Register = () => {
                   )}
                 </Form.Group>
 
-                {/* Contraseña */}
                 <Form.Group className="mb-3" controlId="pw">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
