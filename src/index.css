@@ -8,13 +8,6 @@ main {
   flex-grow: 1;
 }
 
-.circle {
-  width: 25px;
-  height: 25px;
-  background-color: blue;
-  border-radius: 50%;
-}
-
 .sombra {
   box-shadow: 0px 0px 30px 2px rgb(86, 87, 85);
 }
@@ -31,8 +24,8 @@ main {
 section[id]::before {
   content: "";
   display: block;
-  height: 170px; /* altura del sticky */
-  margin-top: -170px; /* igual al height pero negativo */
+  height: 170px;
+  margin-top: -170px;
   visibility: hidden;
 }
 
@@ -40,11 +33,11 @@ section[id]::before {
   aside {
     position: sticky;
     top: 0;
-    height: 100vh; /* Ocupa toda la altura del viewport */
+    height: 100vh;
     align-self: flex-start;
-    width: 250px; /* Ajusta el ancho según tu diseño */
-    overflow-y: auto; /* Por si el contenido del aside es muy alto */
-    background-color: #f8f9fa; /* fondo claro para que se note */
+    width: 250px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
     border-right: 1px solid #ddd;
     padding: 1rem;
   }

@@ -28,6 +28,7 @@ export const crearReceta = async (recetaNueva) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-token": JSON.parse(sessionStorage.getItem("adminKey")).token,
       },
       body: JSON.stringify(recetaNueva),
     });
@@ -44,6 +45,7 @@ export const editarReceta = async (recetaEditada, id) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "x-token": JSON.parse(sessionStorage.getItem("adminKey")).token,
       },
       body: JSON.stringify(recetaEditada),
     });
@@ -58,6 +60,9 @@ export const borrarRecetasPorID = async (id) => {
   try {
     const respuesta = await fetch(urlrecetas + `/${id}`, {
       method: "DELETE",
+      headers: {
+        "x-token": JSON.parse(sessionStorage.getItem("adminKey")).token,
+      },
     });
     return respuesta;
   } catch (error) {
@@ -86,6 +91,22 @@ export const crearUsuario = async (usuarioNuevo) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(usuarioNuevo),
+    });
+    return respuesta;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const login = async (datosUsuarios) => {
+  try {
+    const respuesta = await fetch(urlusuarios + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datosUsuarios),
     });
     return respuesta;
   } catch (error) {

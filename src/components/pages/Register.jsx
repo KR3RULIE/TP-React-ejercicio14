@@ -4,7 +4,7 @@ import { crearUsuario } from "../../helpers/queries";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
-const Register = ({ setUsuario }) => {
+const Register = () => {
   const navegacion = useNavigate();
   const {
     register,
@@ -27,9 +27,8 @@ const Register = ({ setUsuario }) => {
           text: `El usuario ${data.nombreUsuario} fue creado correctamente`,
           icon: "success",
         }).then(() => {
-          navegacion("/login"); // redirige al login después del OK
+          navegacion("/login");
         });
-        setUsuario(data); // Actualizamos el estado del usuario
       } else {
         Swal.fire({
           title: "Error",
@@ -56,7 +55,6 @@ const Register = ({ setUsuario }) => {
             </Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
-                {/* Nombre de usuario */}
                 <Form.Group className="mb-3" controlId="nombreUsuario">
                   <Form.Label>Nombre de usuario</Form.Label>
                   <Form.Control
@@ -81,7 +79,6 @@ const Register = ({ setUsuario }) => {
                   )}
                 </Form.Group>
 
-                {/* Email */}
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -101,7 +98,6 @@ const Register = ({ setUsuario }) => {
                   )}
                 </Form.Group>
 
-                {/* Contraseña */}
                 <Form.Group className="mb-3" controlId="pw">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
