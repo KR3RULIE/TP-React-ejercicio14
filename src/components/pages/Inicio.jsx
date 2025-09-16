@@ -71,7 +71,7 @@ const Inicio = ({ admin }) => {
             actualizarListaRecetas={actualizarListaRecetas}
           />
 
-          {admin && (
+          {admin.token && (
             <>
               <Button
                 className="me-2"
