@@ -37,8 +37,6 @@ Clona este repositorio e instala las dependencias:
 Debes crear el archivo (.env) a la altura del index.html o pachage.json y agregar lo siguiente.
 
 ```bash
-    VITE_API_EMAIL=ejemploAdmin@gmail.com
-    VITE_API_PW=Ej345!78
     VITE_API_RECETAS=http://localhost:3000/api/recetas
     VITE_API_USUARIOS=http://localhost:3000/api/usuarios
 ```
@@ -52,3 +50,7 @@ NOTA: (sugiero ver algun video tutorial de como crear las: POST - GET - DELETE -
 ```bash
     npm run dev
 ```
+
+## DEMO
+
+[DEMO](https://blog-recetas-de-cocina.netlify.app/)
