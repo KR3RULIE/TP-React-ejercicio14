@@ -50,3 +50,7 @@ NOTA: (sugiero ver algun video tutorial de como crear las: POST - GET - DELETE -
 ```bash
     npm run dev
 ```
+
+## DEMO
+
+[DEMO](https://blog-recetas-de-cocina.netlify.app/)
